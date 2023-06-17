@@ -1,46 +1,18 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/Screen/cart_screen.dart';
 import 'package:shopping_app/Screen/product_detail_screen.dart';
-import '../Controller/cart_item_controller.dart';
+import 'package:shopping_app/Widget/app_bar.dart';
 import '../Controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeController controller = Get.find<HomeController>();
-  final CartController cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
-        title: Text('Product App'),
-        actions: [
-          Stack(
-            children: [
-              IconButton(
-                icon: Icon(Icons.shopping_cart),
-                onPressed: () {
-                  Get.to(CartScreen());
-                },
-              ),
-              Positioned(
-                right: 0,
-                child: Container(
-                  padding: EdgeInsets.all(2),
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Obx(() => Text(
-                    '${cartController.cartItemCount}',
-                    style: TextStyle(color: Colors.white),
-                  )),
-                ),
-              ),
-            ],
-          ),
-        ],
+      appBar: SAppBar(
+        title: "Products",
+        cartNav: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -77,11 +49,13 @@ class HomeScreen extends StatelessWidget {
                             Get.to(ProductDetailsScreen(product: product));
                           },
                           child: GridTile(
-                            child: Image.network(product.image, fit: BoxFit.cover),
+                            child:
+                                Image.network(product.image, fit: BoxFit.cover),
                             footer: GridTileBar(
                               backgroundColor: Colors.black45,
                               title: Text(product.title),
-                              subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                              subtitle:
+                                  Text('\$${product.price.toStringAsFixed(2)}'),
                             ),
                           ),
                         );
@@ -97,4 +71,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

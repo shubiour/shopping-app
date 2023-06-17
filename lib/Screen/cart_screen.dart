@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controller/cart_item_controller.dart';
+import '../Widget/app_bar.dart';
 
 class CartScreen extends StatelessWidget {
   final CartController cartController = Get.find<CartController>();
@@ -8,8 +9,9 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Cart'),
+      appBar: SAppBar(
+        title: "Cart",
+        cartNav: false,
       ),
       body: Obx(
         () {
@@ -23,7 +25,8 @@ class CartScreen extends StatelessWidget {
                 return ListTile(
                   leading: Image.network(cartItem.product.image),
                   title: Text(cartItem.product.title),
-                  subtitle: Text('\$${cartItem.product.price.toStringAsFixed(2)}'),
+                  subtitle:
+                      Text('\$${cartItem.product.price.toStringAsFixed(2)}'),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
@@ -39,4 +42,3 @@ class CartScreen extends StatelessWidget {
     );
   }
 }
-

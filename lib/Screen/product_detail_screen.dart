@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 import 'package:shopping_app/Model/product.dart';
 import '../Controller/cart_item_controller.dart';
 import '../Model/cart_item.dart';
+import '../Widget/app_bar.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
 
   ProductDetailsScreen({required this.product});
   final CartController cartController = Get.find<CartController>();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Product Details'),
+      appBar: SAppBar(
+        title: "Product information",
+        cartNav: true,
       ),
       body: Center(
         child: Column(
