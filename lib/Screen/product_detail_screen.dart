@@ -8,7 +8,7 @@ import '../Widget/app_bar.dart';
 class ProductDetailsScreen extends StatelessWidget {
   final Product product;
 
-  ProductDetailsScreen({required this.product});
+  ProductDetailsScreen({super.key, required this.product});
   final CartController _cartController = Get.put(CartController());
 
   @override
@@ -32,7 +32,7 @@ class ProductDetailsScreen extends StatelessWidget {
                 _cartController.addItemToCart(cartItem);
                 Get.snackbar('Success', 'Item added to cart');
               },
-              child: Text('Add to Cart'),
+              child: const Text('Add to Cart'),
             ),
           ],
         ),

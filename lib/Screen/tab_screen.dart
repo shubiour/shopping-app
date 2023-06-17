@@ -8,8 +8,8 @@ class TabScreen extends StatelessWidget {
   TabScreen({super.key});
   final RxInt _selectedPageIndex = 0.obs;
   final List<Widget> _pages = [
-    HomeScreen(),
-    CartScreen(),
+    const HomeScreen(),
+    const CartScreen(),
   ];
 
   @override

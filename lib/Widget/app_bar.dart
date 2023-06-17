@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shopping_app/Router/route_constants.dart';
 import '../Controller/cart_item_controller.dart';
 import '../Controller/home_controller.dart';
-import '../Screen/cart_screen.dart';
 
 class SAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 final HomeController _homeController = Get.put(HomeController());
@@ -30,22 +30,22 @@ final HomeController _homeController = Get.put(HomeController());
             ? Stack(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.shopping_cart),
+                    icon: const Icon(Icons.shopping_cart),
                     onPressed: () {
-                      Get.to(CartScreen());
+                      Get.toNamed(cartScreen);
                     },
                   ),
                   Positioned(
                     right: 0,
                     child: Container(
-                      padding: EdgeInsets.all(2),
-                      decoration: BoxDecoration(
+                      padding: const EdgeInsets.all(2),
+                      decoration: const BoxDecoration(
                         color: Colors.red,
                         shape: BoxShape.circle,
                       ),
                       child: Obx(() => Text(
                             '${_cartController.cartItemCount}',
-                            style: TextStyle(color: Colors.white),
+                            style: const TextStyle(color: Colors.white),
                           )),
                     ),
                   ),
@@ -54,16 +54,16 @@ final HomeController _homeController = Get.put(HomeController());
             : const Offstage(),
         needSorting
             ? PopupMenuButton<SortOption>(
-                icon: Icon(Icons.sort),
+                icon: const Icon(Icons.sort),
                 onSelected: (SortOption selectedOption) {
                   _homeController.sortProducts(selectedOption);
                 },
                 itemBuilder: (BuildContext context) => [
-                  PopupMenuItem<SortOption>(
+                  const PopupMenuItem<SortOption>(
                     value: SortOption.highToLow,
                     child: Text('High to Low'),
                   ),
-                  PopupMenuItem<SortOption>(
+                  const PopupMenuItem<SortOption>(
                     value: SortOption.lowToHigh,
                     child: Text('Low to High'),
                   ),

@@ -7,6 +7,8 @@ import '../Controller/home_controller.dart';
 class HomeScreen extends StatelessWidget {
   final HomeController _homeController = Get.put(HomeController());
 
+  HomeScreen({super.key});
+
   Future<void> _refreshProducts() async {
     await _homeController.fetchProducts();
   }
@@ -29,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextField(
                   onChanged: _homeController.searchProducts,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Search',
                     prefixIcon: Icon(Icons.search),
                     border: OutlineInputBorder(),
@@ -40,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                 child: Obx(
                   () {
                     if (_homeController.isLoading.value) {
-                      return Center(child: CircularProgressIndicator());
+                      return const Center(child: CircularProgressIndicator());
                     } else {
                       return GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 10.0,
                           crossAxisSpacing: 10.0,
@@ -57,14 +59,14 @@ class HomeScreen extends StatelessWidget {
                               Get.to(ProductDetailsScreen(product: product));
                             },
                             child: GridTile(
-                              child: Image.network(product.image,
-                                  fit: BoxFit.cover),
                               footer: GridTileBar(
                                 backgroundColor: Colors.black45,
                                 title: Text(product.title),
                                 subtitle: Text(
                                     '\$${product.price.toStringAsFixed(2)}'),
                               ),
+                              child: Image.network(product.image,
+                                  fit: BoxFit.cover),
                             ),
                           );
                         },

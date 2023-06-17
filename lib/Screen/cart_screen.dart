@@ -5,6 +5,8 @@ import '../Widget/app_bar.dart';
 class CartScreen extends StatelessWidget {
   final CartController _cartController = Get.put(CartController());
 
+  CartScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,7 +18,7 @@ class CartScreen extends StatelessWidget {
       body: Obx(
         () {
           if (_cartController.cartItems.isEmpty) {
-            return Center(child: Text('Cart is empty'));
+            return const Center(child: Text('Cart is empty'));
           } else {
             return ListView.builder(
               itemCount: _cartController.cartItems.length,
@@ -28,7 +30,7 @@ class CartScreen extends StatelessWidget {
                   subtitle:
                       Text('\$${cartItem.product.price.toStringAsFixed(2)}'),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       _cartController.removeItemFromCart(cartItem);
                     },
