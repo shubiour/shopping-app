@@ -24,7 +24,7 @@ final HomeController _homeController = Get.put(HomeController());
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text('Product App'),
+      title: Text(title),
       actions: [
         cartNav
             ? Stack(

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controller/cart_item_controller.dart';
 import '../Widget/app_bar.dart';
-import '../Widget/bottom_navigation_bar.dart';
-
 class CartScreen extends StatelessWidget {
   final CartController _cartController = Get.put(CartController());
 

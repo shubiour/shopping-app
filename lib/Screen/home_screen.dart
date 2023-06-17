@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:shopping_app/Screen/product_detail_screen.dart';
 import 'package:shopping_app/Widget/app_bar.dart';
 import '../Controller/home_controller.dart';
-import '../Widget/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final HomeController _homeController = Get.put(HomeController());
