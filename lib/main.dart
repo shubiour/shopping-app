@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/Screen/cart_screen.dart';
-import 'package:shopping_app/Screen/home_screen.dart';
 import 'Controller/cart_item_controller.dart';
 import 'Controller/home_controller.dart';
+import 'Router/app_routes.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,10 +21,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       initialRoute: '/',
-      getPages: [
-        GetPage(name: '/', page: () => HomeScreen()),
-        GetPage(name: '/cart', page: () => CartScreen()),
-      ],
+      getPages: AppRoutes.routes,
     );
   }
 }
