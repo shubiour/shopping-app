@@ -1,11 +1,12 @@
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import '../Model/product.dart';
-import '../Service/api_service.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class HomeController extends GetxController {
   RxList<Product> products = RxList<Product>([]);
   RxList<Product> filteredProducts = RxList<Product>([]);
+  RxBool isLoading = RxBool(false);
 
   @override
   void onInit() {
@@ -13,20 +14,39 @@ class HomeController extends GetxController {
     fetchProducts();
   }
 
-  void fetchProducts() async {
+  Future<void> fetchProducts() async {
     try {
-      final List<Product> fetchedProducts = await ApiService.fetchProducts();
-      products.assignAll(fetchedProducts);
-      filteredProducts.assignAll(fetchedProducts);
-    } catch (e) {
-      // Handle error
+      isLoading.value = true;
+
+      final response =
+          await http.get(Uri.parse('https://fakestoreapi.com/products'));
+      if (response.statusCode == 200) {
+        final List<dynamic> responseData = jsonDecode(response.body);
+        final List<Product> fetchedProducts =
+            responseData.map((data) => Product.fromJson(data)).toList();
+
+        products.value = fetchedProducts;
+        filteredProducts.value = fetchedProducts;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      // Handle exception
+    } finally {
+      isLoading.value = false;
     }
   }
 
   void searchProducts(String query) {
-    filteredProducts.value = products.where((product) =>
-        product.title.toLowerCase().contains(query.toLowerCase())).toList();
+    if (query.isEmpty) {
+      filteredProducts.value = products;
+    } else {
+      final lowerCaseQuery = query.toLowerCase();
+      final filteredList = products
+          .where(
+              (product) => product.title.toLowerCase().contains(lowerCaseQuery))
+          .toList();
+      filteredProducts.value = filteredList;
+    }
   }
 }
-
-
