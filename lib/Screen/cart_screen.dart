@@ -12,6 +12,7 @@ class CartScreen extends StatelessWidget {
       appBar: SAppBar(
         title: "Cart",
         cartNav: false,
+        needSorting: false,
       ),
       body: Obx(
         () {

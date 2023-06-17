@@ -49,4 +49,22 @@ class HomeController extends GetxController {
       filteredProducts.value = filteredList;
     }
   }
+
+  void sortProducts(SortOption sortOption) {
+    switch (sortOption) {
+      case SortOption.highToLow:
+        filteredProducts.value = List.from(filteredProducts.value)
+          ..sort((a, b) => b.price.compareTo(a.price));
+        break;
+      case SortOption.lowToHigh:
+        filteredProducts.value = List.from(filteredProducts.value)
+          ..sort((a, b) => a.price.compareTo(b.price));
+        break;
+    }
+  }
+}
+
+enum SortOption {
+  highToLow,
+  lowToHigh,
 }

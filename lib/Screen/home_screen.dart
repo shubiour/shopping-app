@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
       appBar: SAppBar(
         title: "Products",
         cartNav: true,
+        needSorting: true,
       ),
       body: RefreshIndicator(
         onRefresh: _refreshProducts,

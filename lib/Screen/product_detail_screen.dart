@@ -17,6 +17,7 @@ class ProductDetailsScreen extends StatelessWidget {
       appBar: SAppBar(
         title: "Product information",
         cartNav: true,
+        needSorting: false,
       ),
       body: Center(
         child: Column(
