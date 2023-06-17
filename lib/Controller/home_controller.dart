@@ -1,5 +1,3 @@
-// ignore_for_file: invalid_use_of_protected_member
-
 import 'package:get/get.dart';
 import '../Model/product.dart';
 import 'package:http/http.dart' as http;
@@ -30,10 +28,11 @@ class HomeController extends GetxController {
         products.value = fetchedProducts;
         filteredProducts.value = fetchedProducts;
       } else {
-        // Handle error case
+        throw Exception('Failed to fetch products');
       }
     } catch (error) {
       // Handle exception
+      print('Error: $error');
     } finally {
       isLoading.value = false;
     }
