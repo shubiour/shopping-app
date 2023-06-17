@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../Screen/product_detail_screen.dart';
 import '../Controller/home_controller.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeController controller = Get.put(HomeController());
+  final HomeController controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class HomeScreen extends StatelessWidget {
               subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
               leading: Image.network(product.image),
               onTap: () {
-                // Navigate to product details page
+                Get.to(ProductDetailsScreen(product: product));
               },
             );
           },
