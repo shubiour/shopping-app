@@ -12,6 +12,8 @@ class Product {
     required this.description,
     required this.image,
   });
+
+  static fromJson(data) {}
 }
 
 
