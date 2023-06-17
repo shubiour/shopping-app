@@ -3,15 +3,15 @@ import 'package:http/http.dart' as http;
 import '../Model/product.dart';
 
 class ApiService {
-  static const String baseUrl = 'https://fakestoreapi.com';
-
-  Future<List> fetchProducts() async {
-    final response = await http.get(Uri.parse('$baseUrl/products'));
+  static Future<List<Product>> fetchProducts() async {
+    final response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
     if (response.statusCode == 200) {
-      final List<dynamic> responseData = jsonDecode(response.body);
-      return responseData.map((data) => Product.fromJson(data)).toList();
+      final List<dynamic> data = json.decode(response.body);
+      final List<Product> products = data.cast<Map<String, dynamic>>().map<Product>((json) => Product.fromJson(json)).toList();
+      return products;
     } else {
       throw Exception('Failed to fetch products');
     }
   }
 }
+
