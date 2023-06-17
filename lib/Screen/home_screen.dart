@@ -11,29 +11,47 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Product App'),
       ),
-      body: Obx(
-        () {
-          if (controller.products.isEmpty) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return ListView.builder(
-              itemCount: controller.products.length,
-              itemBuilder: (context, index) {
-                final product = controller.products[index];
-                return ListTile(
-                  title: Text(product.title),
-                  subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
-                  leading: Image.network(product.image),
-                  onTap: () {
-                    Get.to(ProductDetailsScreen(product: product));
-                  },
-                );
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              onChanged: controller.searchProducts,
+              decoration: InputDecoration(
+                labelText: 'Search',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: Obx(
+              () {
+                if (controller.products.isEmpty) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return ListView.builder(
+                    itemCount: controller.filteredProducts.length,
+                    itemBuilder: (context, index) {
+                      final product = controller.filteredProducts[index];
+                      return ListTile(
+                        title: Text(product.title),
+                        subtitle: Text('\$${product.price.toStringAsFixed(2)}'),
+                        leading: Image.network(product.image),
+                        onTap: () {
+                          Get.to(ProductDetailsScreen(product: product));
+                        },
+                      );
+                    },
+                  );
+                }
               },
-            );
-          }
-        },
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
 
