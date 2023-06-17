@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shopping_app/Controller/home_controller.dart';
 import '../Controller/cart_item_controller.dart';
+import '../Controller/home_controller.dart';
 import '../Screen/cart_screen.dart';
 
-class SAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final CartController cartController = Get.find<CartController>();
-  final HomeController homeController = Get.find<HomeController>();
+class SAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
+final HomeController _homeController = Get.put(HomeController());
+  final CartController _cartController = Get.put(CartController());
   final String title;
   final bool cartNav;
   final bool needSorting;
 
-  SAppBar({
+  SAppBarWidget({
     super.key,
     required this.title,
     required this.cartNav,
@@ -44,7 +44,7 @@ class SAppBar extends StatelessWidget implements PreferredSizeWidget {
                         shape: BoxShape.circle,
                       ),
                       child: Obx(() => Text(
-                            '${cartController.cartItemCount}',
+                            '${_cartController.cartItemCount}',
                             style: TextStyle(color: Colors.white),
                           )),
                     ),
@@ -56,7 +56,7 @@ class SAppBar extends StatelessWidget implements PreferredSizeWidget {
             ? PopupMenuButton<SortOption>(
                 icon: Icon(Icons.sort),
                 onSelected: (SortOption selectedOption) {
-                  homeController.sortProducts(selectedOption);
+                  _homeController.sortProducts(selectedOption);
                 },
                 itemBuilder: (BuildContext context) => [
                   PopupMenuItem<SortOption>(

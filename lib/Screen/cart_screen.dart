@@ -2,27 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../Controller/cart_item_controller.dart';
 import '../Widget/app_bar.dart';
+import '../Widget/bottom_navigation_bar.dart';
 
 class CartScreen extends StatelessWidget {
-  final CartController cartController = Get.find<CartController>();
+  final CartController _cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SAppBar(
+      appBar: SAppBarWidget(
         title: "Cart",
         cartNav: false,
         needSorting: false,
       ),
       body: Obx(
         () {
-          if (cartController.cartItems.isEmpty) {
+          if (_cartController.cartItems.isEmpty) {
             return Center(child: Text('Cart is empty'));
           } else {
             return ListView.builder(
-              itemCount: cartController.cartItems.length,
+              itemCount: _cartController.cartItems.length,
               itemBuilder: (context, index) {
-                final cartItem = cartController.cartItems[index];
+                final cartItem = _cartController.cartItems[index];
                 return ListTile(
                   leading: Image.network(cartItem.product.image),
                   title: Text(cartItem.product.title),
@@ -31,7 +32,7 @@ class CartScreen extends StatelessWidget {
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: () {
-                      cartController.removeItemFromCart(cartItem);
+                      _cartController.removeItemFromCart(cartItem);
                     },
                   ),
                 );

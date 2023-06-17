@@ -1,7 +1,6 @@
+// ignore_for_file: unused_field
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'Controller/cart_item_controller.dart';
-import 'Controller/home_controller.dart';
 import 'Router/app_routes.dart';
 
 void main() {
@@ -9,8 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final HomeController homeController = Get.put(HomeController());
-  final CartController cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {

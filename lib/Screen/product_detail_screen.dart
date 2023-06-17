@@ -9,12 +9,12 @@ class ProductDetailsScreen extends StatelessWidget {
   final Product product;
 
   ProductDetailsScreen({required this.product});
-  final CartController cartController = Get.find<CartController>();
+  final CartController _cartController = Get.put(CartController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SAppBar(
+      appBar: SAppBarWidget(
         title: "Product information",
         cartNav: true,
         needSorting: false,
@@ -29,7 +29,7 @@ class ProductDetailsScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 final cartItem = CartItem(product: product, quantity: 1);
-                cartController.addItemToCart(cartItem);
+                _cartController.addItemToCart(cartItem);
                 Get.snackbar('Success', 'Item added to cart');
               },
               child: Text('Add to Cart'),

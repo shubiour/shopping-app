@@ -2,21 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shopping_app/Screen/product_detail_screen.dart';
 import 'package:shopping_app/Widget/app_bar.dart';
-import '../Controller/cart_item_controller.dart';
 import '../Controller/home_controller.dart';
+import '../Widget/bottom_navigation_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  final HomeController homeController = Get.find<HomeController>();
-  final CartController cartController = Get.find<CartController>();
+  final HomeController _homeController = Get.put(HomeController());
 
   Future<void> _refreshProducts() async {
-    await homeController.fetchProducts();
+    await _homeController.fetchProducts();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: SAppBar(
+      appBar: SAppBarWidget(
         title: "Products",
         cartNav: true,
         needSorting: true,
@@ -30,7 +29,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
                 child: TextField(
-                  onChanged: homeController.searchProducts,
+                  onChanged: _homeController.searchProducts,
                   decoration: InputDecoration(
                     labelText: 'Search',
                     prefixIcon: Icon(Icons.search),
@@ -41,7 +40,7 @@ class HomeScreen extends StatelessWidget {
               Expanded(
                 child: Obx(
                   () {
-                    if (homeController.isLoading.value) {
+                    if (_homeController.isLoading.value) {
                       return Center(child: CircularProgressIndicator());
                     } else {
                       return GridView.builder(
@@ -50,10 +49,10 @@ class HomeScreen extends StatelessWidget {
                           mainAxisSpacing: 10.0,
                           crossAxisSpacing: 10.0,
                         ),
-                        itemCount: homeController.filteredProducts.length,
+                        itemCount: _homeController.filteredProducts.length,
                         itemBuilder: (context, index) {
                           final product =
-                              homeController.filteredProducts[index];
+                              _homeController.filteredProducts[index];
                           return GestureDetector(
                             onTap: () {
                               Get.to(ProductDetailsScreen(product: product));
