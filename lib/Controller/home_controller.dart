@@ -1,7 +1,8 @@
+// ignore_for_file: invalid_use_of_protected_member
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../Model/product.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+import '../Service/api_service.dart';
 
 class HomeController extends GetxController {
   RxList<Product> products = RxList<Product>([]);
@@ -17,22 +18,13 @@ class HomeController extends GetxController {
   Future<void> fetchProducts() async {
     try {
       isLoading.value = true;
-
-      final response =
-          await http.get(Uri.parse('https://fakestoreapi.com/products'));
-      if (response.statusCode == 200) {
-        final List<dynamic> responseData = jsonDecode(response.body);
-        final List<Product> fetchedProducts =
-            responseData.map((data) => Product.fromJson(data)).toList();
-
-        products.value = fetchedProducts;
-        filteredProducts.value = fetchedProducts;
-      } else {
-        throw Exception('Failed to fetch products');
-      }
+      final List<Product> fetchedProducts = await ApiService.fetchProducts();
+      products.value = fetchedProducts;
+      filteredProducts.value = fetchedProducts;
     } catch (error) {
-      // Handle exception
-      print('Error: $error');
+      if (kDebugMode) {
+        print('Error: $error');
+      }
     } finally {
       isLoading.value = false;
     }
