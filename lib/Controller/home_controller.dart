@@ -30,6 +30,10 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> refreshProducts() async {
+    await fetchProducts();
+  }
+
   void searchProducts(String query) {
     if (query.isEmpty) {
       filteredProducts.value = products;

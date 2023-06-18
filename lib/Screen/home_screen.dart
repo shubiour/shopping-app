@@ -9,10 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   HomeScreen({super.key});
 
-  Future<void> _refreshProducts() async {
-    await _homeController.fetchProducts();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         needSorting: true,
       ),
       body: RefreshIndicator(
-        onRefresh: _refreshProducts,
+        onRefresh: _homeController.refreshProducts,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
