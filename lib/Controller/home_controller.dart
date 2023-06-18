@@ -1,8 +1,10 @@
 // ignore_for_file: invalid_use_of_protected_member
+
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import '../Model/product.dart';
 import '../Service/api_service.dart';
+import '../Store/product_store.dart';
 
 class HomeController extends GetxController {
   RxList<Product> products = RxList<Product>([]);
@@ -18,13 +20,22 @@ class HomeController extends GetxController {
   Future<void> fetchProducts() async {
     try {
       isLoading.value = true;
-      final List<Product> fetchedProducts = await ApiService.fetchProducts();
+      List<Product> fetchedProducts = await ApiService.fetchProducts();
+      if (fetchedProducts.isNotEmpty) {
+        ProductStore().saveProductsToSharedPreferences(fetchedProducts);
+      } else {
+        fetchedProducts = await  ProductStore().loadProductsFromSharedPreferences();
+      }
       products.value = fetchedProducts;
       filteredProducts.value = fetchedProducts;
     } catch (error) {
       if (kDebugMode) {
         print('Error: $error');
       }
+      // If an error occurs, try to load products from shared preferences
+      final fetchedProducts = await  ProductStore().loadProductsFromSharedPreferences();
+      products.value = fetchedProducts;
+      filteredProducts.value = fetchedProducts;
     } finally {
       isLoading.value = false;
     }

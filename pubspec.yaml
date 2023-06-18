@@ -35,9 +35,7 @@ dependencies:
   get_storage: ^2.1.1
   logger: ^1.4.0
   badges: ^3.1.1
-  hive: ^2.2.3
-  hive_flutter: ^1.1.0
-  path_provider: ^2.0.14
+  shared_preferences: ^2.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
